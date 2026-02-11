@@ -1,0 +1,4 @@
+node_modules/
+dist/
+.env
+guia_prompts_tp_final.txt
