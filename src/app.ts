@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
 import authRoutes from './routes/authRoutes';
+import ownerRoutes from './routes/ownerRoutes';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.get('/', (_req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/owners', ownerRoutes);
 
 connectDB().then(() => {
     app.listen(PORT, () => {
