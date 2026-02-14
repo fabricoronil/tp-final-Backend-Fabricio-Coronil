@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db';
 import authRoutes from './routes/authRoutes';
 import ownerRoutes from './routes/ownerRoutes';
+import petRoutes from './routes/petRoutes';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.get('/', (_req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/owners', ownerRoutes);
+app.use('/api/pets', petRoutes);
 
 connectDB().then(() => {
     app.listen(PORT, () => {
