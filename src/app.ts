@@ -7,6 +7,7 @@ import ownerRoutes from './routes/ownerRoutes';
 import petRoutes from './routes/petRoutes';
 import vetRoutes from './routes/vetRoutes';
 import clinicalHistoryRoutes from './routes/clinicalHistoryRoutes';
+import errorHandler from './middlewares/errorHandler';
 
 dotenv.config();
 
@@ -26,6 +27,8 @@ app.use('/api/owners', ownerRoutes);
 app.use('/api/pets', petRoutes);
 app.use('/api/vets', vetRoutes);
 app.use('/api/clinical-histories', clinicalHistoryRoutes);
+
+app.use(errorHandler);
 
 connectDB().then(() => {
     app.listen(PORT, () => {
