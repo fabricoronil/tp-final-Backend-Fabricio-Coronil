@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
@@ -18,9 +19,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/', (_req, res) => {
-    res.json({ mensaje: 'API Veterinaria Patitas Felices funcionando' });
-});
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/owners', ownerRoutes);

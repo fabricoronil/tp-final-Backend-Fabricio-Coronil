@@ -1,0 +1,93 @@
+const API_URL = 'http://localhost:3000/api';
+
+function mostrarTab(tab) {
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const tabs = document.querySelectorAll('.tab');
+
+    tabs.forEach(t => t.classList.remove('active'));
+
+    if (tab === 'login') {
+        loginForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+        tabs[0].classList.add('active');
+    } else {
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        tabs[1].classList.add('active');
+    }
+
+    limpiarMensaje();
+}
+
+function mostrarMensaje(texto, tipo) {
+    const div = document.getElementById('mensaje');
+    div.textContent = texto;
+    div.className = 'mensaje ' + tipo;
+}
+
+function limpiarMensaje() {
+    const div = document.getElementById('mensaje');
+    div.textContent = '';
+    div.className = 'mensaje';
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    try {
+        const res = await fetch(API_URL + '/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            mostrarMensaje(data.mensaje || 'Error al iniciar sesion', 'error');
+            return;
+        }
+
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data.username);
+        window.location.href = '/dashboard.html';
+    } catch (error) {
+        mostrarMensaje('Error de conexion con el servidor', 'error');
+    }
+}
+
+async function handleRegister(e) {
+    e.preventDefault();
+
+    const username = document.getElementById('reg-username').value;
+    const email = document.getElementById('reg-email').value;
+    const password = document.getElementById('reg-password').value;
+
+    try {
+        const res = await fetch(API_URL + '/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            const msg = data.errores
+                ? data.errores.map(e => e.msg).join(', ')
+                : data.mensaje || 'Error al registrarse';
+            mostrarMensaje(msg, 'error');
+            return;
+        }
+
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data.username);
+        window.location.href = '/dashboard.html';
+    } catch (error) {
+        mostrarMensaje('Error de conexion con el servidor', 'error');
+    }
+}
