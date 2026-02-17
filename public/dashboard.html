@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Patitas Felices</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container" style="max-width: 900px;">
+        <div class="header">
+            <h1>Patitas Felices - Dashboard</h1>
+            <div>
+                <span id="bienvenida"></span>
+                <button class="btn btn-danger btn-small" onclick="cerrarSesion()">Cerrar Sesion</button>
+            </div>
+        </div>
+
+        <div id="seccion-mascotas">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>Mascotas</h2>
+                <button class="btn btn-small" onclick="mostrarFormulario()">+ Nueva Mascota</button>
+            </div>
+
+            <div id="formulario-mascota" class="form hidden" style="margin-bottom: 20px;">
+                <h3 id="form-titulo">Agregar Mascota</h3>
+                <input type="hidden" id="mascota-id">
+                <div class="form-group">
+                    <label for="mascota-nombre">Nombre</label>
+                    <input type="text" id="mascota-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="mascota-especie">Especie</label>
+                    <input type="text" id="mascota-especie" placeholder="Perro, Gato, etc." required>
+                </div>
+                <div class="form-group">
+                    <label for="mascota-raza">Raza</label>
+                    <input type="text" id="mascota-raza">
+                </div>
+                <div class="form-group">
+                    <label for="mascota-edad">Edad</label>
+                    <input type="number" id="mascota-edad" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="mascota-owner">Dueño</label>
+                    <select id="mascota-owner" required>
+                        <option value="">Seleccionar dueño...</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="guardarMascota()">Guardar</button>
+                    <button class="btn btn-secondary" onclick="cancelarFormulario()">Cancelar</button>
+                </div>
+            </div>
+
+            <div id="mensaje-dashboard" class="mensaje"></div>
+
+            <table id="tabla-mascotas">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Especie</th>
+                        <th>Raza</th>
+                        <th>Edad</th>
+                        <th>Dueño</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-mascotas">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
