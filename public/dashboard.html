@@ -18,6 +18,65 @@
             </div>
         </div>
 
+        <div class="tabs">
+            <button class="tab active" onclick="cambiarSeccion('mascotas')">Mascotas</button>
+            <button class="tab" onclick="cambiarSeccion('duenos')">Dueños</button>
+        </div>
+
+        <div id="mensaje-dashboard" class="mensaje"></div>
+
+        <!-- SECCION DUEÑOS -->
+        <div id="seccion-duenos" class="hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>Dueños</h2>
+                <button class="btn btn-small" onclick="mostrarFormDueno()">+ Nuevo Dueño</button>
+            </div>
+
+            <div id="formulario-dueno" class="form hidden" style="margin-bottom: 20px;">
+                <h3 id="form-titulo-dueno">Agregar Dueño</h3>
+                <input type="hidden" id="dueno-id">
+                <div class="form-group">
+                    <label for="dueno-nombre">Nombre</label>
+                    <input type="text" id="dueno-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="dueno-apellido">Apellido</label>
+                    <input type="text" id="dueno-apellido" required>
+                </div>
+                <div class="form-group">
+                    <label for="dueno-telefono">Teléfono</label>
+                    <input type="text" id="dueno-telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="dueno-direccion">Dirección</label>
+                    <input type="text" id="dueno-direccion">
+                </div>
+                <div class="form-group">
+                    <label for="dueno-email">Email</label>
+                    <input type="email" id="dueno-email" required>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="guardarDueno()">Guardar</button>
+                    <button class="btn btn-secondary" onclick="cancelarFormDueno()">Cancelar</button>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-duenos">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECCION MASCOTAS -->
         <div id="seccion-mascotas">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h2>Mascotas</h2>
@@ -48,14 +107,15 @@
                     <select id="mascota-owner" required>
                         <option value="">Seleccionar dueño...</option>
                     </select>
+                    <small id="aviso-duenos" class="hidden" style="color: #d32f2f; margin-top: 5px; display: block;">
+                        No hay dueños registrados. Primero creá un dueño en la pestaña "Dueños".
+                    </small>
                 </div>
                 <div style="display: flex; gap: 10px;">
                     <button class="btn" onclick="guardarMascota()">Guardar</button>
                     <button class="btn btn-secondary" onclick="cancelarFormulario()">Cancelar</button>
                 </div>
             </div>
-
-            <div id="mensaje-dashboard" class="mensaje"></div>
 
             <table id="tabla-mascotas">
                 <thead>
