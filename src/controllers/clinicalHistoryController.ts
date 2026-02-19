@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import ClinicalHistory from '../models/ClinicalHistory';
+import { CreateClinicalHistoryDto, UpdateClinicalHistoryDto } from '../dtos/clinicalHistoryDto';
 
 export const getHistories = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -31,7 +32,8 @@ export const getHistoryById = async (req: Request, res: Response, next: NextFunc
 
 export const createHistory = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const historial = await ClinicalHistory.create(req.body);
+        const datos: CreateClinicalHistoryDto = req.body;
+        const historial = await ClinicalHistory.create(datos);
         res.status(201).json(historial);
     } catch (error) {
         next(error);
@@ -40,7 +42,8 @@ export const createHistory = async (req: Request, res: Response, next: NextFunct
 
 export const updateHistory = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const historial = await ClinicalHistory.findByIdAndUpdate(req.params.id, req.body, {
+        const datos: UpdateClinicalHistoryDto = req.body;
+        const historial = await ClinicalHistory.findByIdAndUpdate(req.params.id, datos, {
             new: true,
             runValidators: true
         });

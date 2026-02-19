@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import Owner from '../models/Owner';
+import { CreateOwnerDto, UpdateOwnerDto } from '../dtos/ownerDto';
 
 export const getOwners = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -27,7 +28,8 @@ export const getOwnerById = async (req: Request, res: Response, next: NextFuncti
 
 export const createOwner = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const dueno = await Owner.create(req.body);
+        const datos: CreateOwnerDto = req.body;
+        const dueno = await Owner.create(datos);
         res.status(201).json(dueno);
     } catch (error) {
         next(error);
@@ -36,7 +38,8 @@ export const createOwner = async (req: Request, res: Response, next: NextFunctio
 
 export const updateOwner = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const dueno = await Owner.findByIdAndUpdate(req.params.id, req.body, {
+        const datos: UpdateOwnerDto = req.body;
+        const dueno = await Owner.findByIdAndUpdate(req.params.id, datos, {
             new: true,
             runValidators: true
         });

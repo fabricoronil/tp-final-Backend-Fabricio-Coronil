@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import Vet from '../models/Vet';
+import { CreateVetDto, UpdateVetDto } from '../dtos/vetDto';
 
 export const getVets = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -27,7 +28,8 @@ export const getVetById = async (req: Request, res: Response, next: NextFunction
 
 export const createVet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const veterinario = await Vet.create(req.body);
+        const datos: CreateVetDto = req.body;
+        const veterinario = await Vet.create(datos);
         res.status(201).json(veterinario);
     } catch (error) {
         next(error);
@@ -36,7 +38,8 @@ export const createVet = async (req: Request, res: Response, next: NextFunction)
 
 export const updateVet = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const veterinario = await Vet.findByIdAndUpdate(req.params.id, req.body, {
+        const datos: UpdateVetDto = req.body;
+        const veterinario = await Vet.findByIdAndUpdate(req.params.id, datos, {
             new: true,
             runValidators: true
         });
