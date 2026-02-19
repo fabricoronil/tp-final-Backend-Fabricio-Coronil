@@ -71,6 +71,11 @@ JWT_SECRET=tu_clave_secreta_jwt
 │   │   ├── auth.ts               # Middleware JWT
 │   │   ├── errorHandler.ts       # Manejo centralizado de errores
 │   │   └── validators/           # Validaciones con express-validator
+│   ├── dtos/
+│   │   ├── ownerDto.ts            # DTOs de dueño
+│   │   ├── petDto.ts              # DTOs de mascota
+│   │   ├── vetDto.ts              # DTOs de veterinario
+│   │   └── clinicalHistoryDto.ts  # DTOs de historial clinico
 │   ├── models/
 │   │   ├── User.ts               # Modelo de usuario
 │   │   ├── Owner.ts              # Modelo de dueño
@@ -86,7 +91,7 @@ JWT_SECRET=tu_clave_secreta_jwt
 │   └── app.ts                    # Servidor principal
 ├── public/                       # Frontend HTML/CSS/JS
 │   ├── index.html                # Login y registro
-│   ├── dashboard.html            # CRUD de mascotas
+│   ├── dashboard.html            # Dashboard con CRUD de todas las entidades
 │   ├── styles.css
 │   ├── app.js
 │   └── dashboard.js
@@ -177,6 +182,9 @@ El frontend esta desarrollado con **HTML, CSS y JavaScript** vanilla, ubicado en
 
 - Registro e inicio de sesion de usuarios
 - CRUD completo de mascotas desde el dashboard
+- CRUD completo de dueños
+- CRUD completo de veterinarios
+- CRUD completo de historial clinico
 - Todas las operaciones se realizan consumiendo la API REST del backend
 
 ## Autor
