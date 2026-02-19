@@ -27,6 +27,21 @@ function mostrarMsg(texto, tipo) {
     }, 3000);
 }
 
+// ======= MENU USUARIO =======
+
+function toggleUserMenu() {
+    const dropdown = document.getElementById('user-dropdown');
+    dropdown.classList.toggle('hidden');
+}
+
+document.addEventListener('click', function (e) {
+    const menu = document.querySelector('.user-menu');
+    const dropdown = document.getElementById('user-dropdown');
+    if (menu && dropdown && !menu.contains(e.target)) {
+        dropdown.classList.add('hidden');
+    }
+});
+
 // ======= NAVEGACION =======
 
 function cambiarSeccion(seccion) {

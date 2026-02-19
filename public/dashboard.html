@@ -5,19 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patitas Felices</title>
+    <link rel="icon" type="image/png" href="icono.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="container" style="max-width: 900px;">
+    <div class="container dashboard-container">
         <div class="header">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <img src="logo.png" alt="Logo Patitas Felices" style="width: 45px; height: 45px;">
-                <h1>Patitas Felices</h1>
+            <div class="logo-wrapper">
+                <img src="logo.png" alt="Logo Patitas Felices" class="logo-img">
             </div>
-            <div>
-                <span id="bienvenida"></span>
-                <button class="btn btn-danger btn-small" onclick="cerrarSesion()">Cerrar Sesion</button>
+            <div class="user-menu">
+                <button class="user-avatar" onclick="toggleUserMenu()" id="btn-user-menu">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </button>
+                <div class="user-dropdown hidden" id="user-dropdown">
+                    <div class="user-dropdown-info">
+                        <span id="bienvenida"></span>
+                    </div>
+                    <hr class="user-dropdown-divider">
+                    <button class="user-dropdown-item user-dropdown-logout" onclick="cerrarSesion()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
+                        Cerrar Sesion
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -32,12 +52,12 @@
 
         <!-- SECCION DUEÑOS -->
         <div id="seccion-duenos" class="hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <div class="section-header">
                 <h2>Dueños</h2>
                 <button class="btn btn-small" onclick="mostrarFormDueno()">+ Nuevo Dueño</button>
             </div>
 
-            <div id="formulario-dueno" class="form hidden" style="margin-bottom: 20px;">
+            <div id="formulario-dueno" class="form form-spacing hidden">
                 <h3 id="form-titulo-dueno">Agregar Dueño</h3>
                 <input type="hidden" id="dueno-id">
                 <div class="form-group">
@@ -60,7 +80,7 @@
                     <label for="dueno-email">Email</label>
                     <input type="email" id="dueno-email" required>
                 </div>
-                <div style="display: flex; gap: 10px;">
+                <div class="form-actions">
                     <button class="btn" onclick="guardarDueno()">Guardar</button>
                     <button class="btn btn-secondary" onclick="cancelarFormDueno()">Cancelar</button>
                 </div>
@@ -83,12 +103,12 @@
 
         <!-- SECCION MASCOTAS -->
         <div id="seccion-mascotas">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <div class="section-header">
                 <h2>Mascotas</h2>
                 <button class="btn btn-small" onclick="mostrarFormulario()">+ Nueva Mascota</button>
             </div>
 
-            <div id="formulario-mascota" class="form hidden" style="margin-bottom: 20px;">
+            <div id="formulario-mascota" class="form form-spacing hidden">
                 <h3 id="form-titulo">Agregar Mascota</h3>
                 <input type="hidden" id="mascota-id">
                 <div class="form-group">
@@ -112,11 +132,11 @@
                     <select id="mascota-owner" required>
                         <option value="">Seleccionar dueño...</option>
                     </select>
-                    <small id="aviso-duenos" class="hidden" style="color: #d32f2f; margin-top: 5px; display: block;">
+                    <small id="aviso-duenos" class="aviso-text hidden">
                         No hay dueños registrados. Primero creá un dueño en la pestaña "Dueños".
                     </small>
                 </div>
-                <div style="display: flex; gap: 10px;">
+                <div class="form-actions">
                     <button class="btn" onclick="guardarMascota()">Guardar</button>
                     <button class="btn btn-secondary" onclick="cancelarFormulario()">Cancelar</button>
                 </div>
@@ -140,12 +160,12 @@
 
         <!-- SECCION VETERINARIOS -->
         <div id="seccion-veterinarios" class="hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <div class="section-header">
                 <h2>Veterinarios</h2>
                 <button class="btn btn-small" onclick="mostrarFormVet()">+ Nuevo Veterinario</button>
             </div>
 
-            <div id="formulario-vet" class="form hidden" style="margin-bottom: 20px;">
+            <div id="formulario-vet" class="form form-spacing hidden">
                 <h3 id="form-titulo-vet">Agregar Veterinario</h3>
                 <input type="hidden" id="vet-id">
                 <div class="form-group">
@@ -168,7 +188,7 @@
                     <label for="vet-email">Email</label>
                     <input type="email" id="vet-email" required>
                 </div>
-                <div style="display: flex; gap: 10px;">
+                <div class="form-actions">
                     <button class="btn" onclick="guardarVet()">Guardar</button>
                     <button class="btn btn-secondary" onclick="cancelarFormVet()">Cancelar</button>
                 </div>
@@ -191,12 +211,12 @@
 
         <!-- SECCION HISTORIAL CLINICO -->
         <div id="seccion-historial" class="hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <div class="section-header">
                 <h2>Historial Clínico</h2>
                 <button class="btn btn-small" onclick="mostrarFormHistorial()">+ Nuevo Registro</button>
             </div>
 
-            <div id="formulario-historial" class="form hidden" style="margin-bottom: 20px;">
+            <div id="formulario-historial" class="form form-spacing hidden">
                 <h3 id="form-titulo-historial">Agregar Registro</h3>
                 <input type="hidden" id="historial-id">
                 <div class="form-group">
@@ -227,7 +247,7 @@
                     <label for="historial-observaciones">Observaciones</label>
                     <input type="text" id="historial-observaciones">
                 </div>
-                <div style="display: flex; gap: 10px;">
+                <div class="form-actions">
                     <button class="btn" onclick="guardarHistorial()">Guardar</button>
                     <button class="btn btn-secondary" onclick="cancelarFormHistorial()">Cancelar</button>
                 </div>
