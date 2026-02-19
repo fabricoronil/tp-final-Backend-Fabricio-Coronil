@@ -21,6 +21,8 @@
         <div class="tabs">
             <button class="tab active" onclick="cambiarSeccion('mascotas')">Mascotas</button>
             <button class="tab" onclick="cambiarSeccion('duenos')">Dueños</button>
+            <button class="tab" onclick="cambiarSeccion('veterinarios')">Veterinarios</button>
+            <button class="tab" onclick="cambiarSeccion('historial')">Historial</button>
         </div>
 
         <div id="mensaje-dashboard" class="mensaje"></div>
@@ -129,6 +131,117 @@
                     </tr>
                 </thead>
                 <tbody id="lista-mascotas">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECCION VETERINARIOS -->
+        <div id="seccion-veterinarios" class="hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>Veterinarios</h2>
+                <button class="btn btn-small" onclick="mostrarFormVet()">+ Nuevo Veterinario</button>
+            </div>
+
+            <div id="formulario-vet" class="form hidden" style="margin-bottom: 20px;">
+                <h3 id="form-titulo-vet">Agregar Veterinario</h3>
+                <input type="hidden" id="vet-id">
+                <div class="form-group">
+                    <label for="vet-nombre">Nombre</label>
+                    <input type="text" id="vet-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="vet-apellido">Apellido</label>
+                    <input type="text" id="vet-apellido" required>
+                </div>
+                <div class="form-group">
+                    <label for="vet-especialidad">Especialidad</label>
+                    <input type="text" id="vet-especialidad" placeholder="Clinica general, Cirugia, etc." required>
+                </div>
+                <div class="form-group">
+                    <label for="vet-telefono">Teléfono</label>
+                    <input type="text" id="vet-telefono">
+                </div>
+                <div class="form-group">
+                    <label for="vet-email">Email</label>
+                    <input type="email" id="vet-email" required>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="guardarVet()">Guardar</button>
+                    <button class="btn btn-secondary" onclick="cancelarFormVet()">Cancelar</button>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Especialidad</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-vets">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECCION HISTORIAL CLINICO -->
+        <div id="seccion-historial" class="hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>Historial Clínico</h2>
+                <button class="btn btn-small" onclick="mostrarFormHistorial()">+ Nuevo Registro</button>
+            </div>
+
+            <div id="formulario-historial" class="form hidden" style="margin-bottom: 20px;">
+                <h3 id="form-titulo-historial">Agregar Registro</h3>
+                <input type="hidden" id="historial-id">
+                <div class="form-group">
+                    <label for="historial-fecha">Fecha</label>
+                    <input type="date" id="historial-fecha" required>
+                </div>
+                <div class="form-group">
+                    <label for="historial-mascota">Mascota</label>
+                    <select id="historial-mascota" required>
+                        <option value="">Seleccionar mascota...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="historial-vet">Veterinario</label>
+                    <select id="historial-vet" required>
+                        <option value="">Seleccionar veterinario...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="historial-diagnostico">Diagnóstico</label>
+                    <input type="text" id="historial-diagnostico" required>
+                </div>
+                <div class="form-group">
+                    <label for="historial-tratamiento">Tratamiento</label>
+                    <input type="text" id="historial-tratamiento" required>
+                </div>
+                <div class="form-group">
+                    <label for="historial-observaciones">Observaciones</label>
+                    <input type="text" id="historial-observaciones">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="guardarHistorial()">Guardar</button>
+                    <button class="btn btn-secondary" onclick="cancelarFormHistorial()">Cancelar</button>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Mascota</th>
+                        <th>Veterinario</th>
+                        <th>Diagnóstico</th>
+                        <th>Tratamiento</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-historial">
                 </tbody>
             </table>
         </div>
