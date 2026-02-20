@@ -27,7 +27,7 @@ function mostrarMsg(texto, tipo) {
     }, 3000);
 }
 
-// ======= MENU USUARIO =======
+
 
 function toggleUserMenu() {
     const dropdown = document.getElementById('user-dropdown');
@@ -42,7 +42,7 @@ document.addEventListener('click', function (e) {
     }
 });
 
-// ======= NAVEGACION =======
+
 
 function cambiarSeccion(seccion) {
     const tabs = document.querySelectorAll('.tab');
@@ -72,7 +72,7 @@ function cambiarSeccion(seccion) {
     }
 }
 
-// ======= INICIO =======
+
 
 window.onload = function () {
     const token = getToken();
@@ -88,7 +88,7 @@ window.onload = function () {
     cargarDuenosSelect();
 };
 
-// ======= DUEÑOS - CRUD =======
+
 
 async function cargarDuenosTabla() {
     try {
@@ -149,8 +149,23 @@ async function cargarDuenosSelect() {
                 select.appendChild(option);
             });
         }
+
+        const optNuevo = document.createElement('option');
+        optNuevo.value = 'nuevo';
+        optNuevo.textContent = '+ Crear nuevo dueño';
+        select.appendChild(optNuevo);
     } catch (error) {
         mostrarMsg('Error al cargar dueños', 'error');
+    }
+}
+
+function toggleNuevoDueno() {
+    const select = document.getElementById('mascota-owner');
+    const formInline = document.getElementById('nuevo-dueno-inline');
+    if (select.value === 'nuevo') {
+        formInline.classList.remove('hidden');
+    } else {
+        formInline.classList.add('hidden');
     }
 }
 
@@ -256,7 +271,7 @@ async function eliminarDueno(id) {
     }
 }
 
-// ======= MASCOTAS - CRUD =======
+
 
 async function cargarMascotas() {
     try {
@@ -310,16 +325,52 @@ function mostrarFormulario() {
 
 function cancelarFormulario() {
     document.getElementById('formulario-mascota').classList.add('hidden');
+    document.getElementById('nuevo-dueno-inline').classList.add('hidden');
 }
 
 async function guardarMascota() {
     const id = document.getElementById('mascota-id').value;
+    let ownerId = document.getElementById('mascota-owner').value;
+
+    if (ownerId === 'nuevo') {
+        const nombre = document.getElementById('nuevo-dueno-nombre').value;
+        const apellido = document.getElementById('nuevo-dueno-apellido').value;
+        const telefono = document.getElementById('nuevo-dueno-telefono').value;
+        const direccion = document.getElementById('nuevo-dueno-direccion').value;
+        const email = document.getElementById('nuevo-dueno-email').value;
+
+        if (!nombre || !apellido || !telefono || !email) {
+            mostrarMsg('Completá nombre, apellido, teléfono y email del nuevo dueño', 'error');
+            return;
+        }
+
+        try {
+            const resDueno = await fetch(API_URL + '/owners', {
+                method: 'POST',
+                headers: authHeaders(),
+                body: JSON.stringify({ nombre, apellido, telefono, direccion, email })
+            });
+
+            if (!resDueno.ok) {
+                const errData = await resDueno.json();
+                mostrarMsg(errData.mensaje || 'Error al crear dueño', 'error');
+                return;
+            }
+
+            const nuevoDueno = await resDueno.json();
+            ownerId = nuevoDueno._id;
+        } catch (error) {
+            mostrarMsg('Error de conexion al crear dueño', 'error');
+            return;
+        }
+    }
+
     const datos = {
         nombre: document.getElementById('mascota-nombre').value,
         especie: document.getElementById('mascota-especie').value,
         raza: document.getElementById('mascota-raza').value,
-        edad: document.getElementById('mascota-edad').value ? Number(document.getElementById('mascota-edad').value) : undefined,
-        owner: document.getElementById('mascota-owner').value
+        edad: document.getElementById('mascota-edad').value || undefined,
+        owner: ownerId
     };
 
     if (!datos.nombre || !datos.especie || !datos.owner) {
@@ -350,6 +401,8 @@ async function guardarMascota() {
         mostrarMsg(id ? 'Mascota actualizada' : 'Mascota creada', 'exito');
         cancelarFormulario();
         cargarMascotas();
+        cargarDuenosTabla();
+        cargarDuenosSelect();
     } catch (error) {
         mostrarMsg('Error de conexion', 'error');
     }
@@ -399,7 +452,7 @@ async function eliminarMascota(id) {
     }
 }
 
-// ======= VETERINARIOS - CRUD =======
+
 
 async function cargarVeterinarios() {
     try {
@@ -537,7 +590,7 @@ async function eliminarVet(id) {
     }
 }
 
-// ======= HISTORIAL CLINICO - CRUD =======
+
 
 async function cargarHistorial() {
     try {

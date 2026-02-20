@@ -1,5 +1,16 @@
 const API_URL = 'http://localhost:3000/api';
 
+function togglePassword(inputId, btn) {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.classList.add('active');
+    } else {
+        input.type = 'password';
+        btn.classList.remove('active');
+    }
+}
+
 function mostrarTab(tab) {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
@@ -66,6 +77,12 @@ async function handleRegister(e) {
     const username = document.getElementById('reg-username').value;
     const email = document.getElementById('reg-email').value;
     const password = document.getElementById('reg-password').value;
+    const confirmPassword = document.getElementById('reg-password-confirm').value;
+
+    if (password !== confirmPassword) {
+        mostrarMensaje('Las contraseñas no coinciden', 'error');
+        return;
+    }
 
     try {
         const res = await fetch(API_URL + '/auth/register', {

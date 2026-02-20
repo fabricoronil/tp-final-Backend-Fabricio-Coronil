@@ -4,7 +4,7 @@ export interface IPet extends Document {
     nombre: string;
     especie: string;
     raza: string;
-    edad: number;
+    edad: string;
     owner: Types.ObjectId;
 }
 
@@ -24,7 +24,8 @@ const petSchema = new Schema<IPet>({
         trim: true
     },
     edad: {
-        type: Number
+        type: String,
+        trim: true
     },
     owner: {
         type: Schema.Types.ObjectId,

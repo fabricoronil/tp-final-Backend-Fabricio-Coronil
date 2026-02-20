@@ -14,6 +14,7 @@
         <div class="header">
             <div class="logo-wrapper">
                 <img src="logo.png" alt="Logo Patitas Felices" class="logo-img">
+                <h1 class="header-title">Patitas Felices</h1>
             </div>
             <div class="user-menu">
                 <button class="user-avatar" onclick="toggleUserMenu()" id="btn-user-menu">
@@ -50,7 +51,7 @@
 
         <div id="mensaje-dashboard" class="mensaje"></div>
 
-        <!-- SECCION DUEÑOS -->
+
         <div id="seccion-duenos" class="hidden">
             <div class="section-header">
                 <h2>Dueños</h2>
@@ -101,7 +102,7 @@
             </table>
         </div>
 
-        <!-- SECCION MASCOTAS -->
+
         <div id="seccion-mascotas">
             <div class="section-header">
                 <h2>Mascotas</h2>
@@ -125,13 +126,37 @@
                 </div>
                 <div class="form-group">
                     <label for="mascota-edad">Edad</label>
-                    <input type="number" id="mascota-edad" min="0">
+                    <input type="text" id="mascota-edad" placeholder="Ej: 3 años, 6 meses, 20 dias">
                 </div>
                 <div class="form-group">
                     <label for="mascota-owner">Dueño</label>
-                    <select id="mascota-owner" required>
+                    <select id="mascota-owner" required onchange="toggleNuevoDueno()">
                         <option value="">Seleccionar dueño...</option>
+                        <option value="nuevo">+ Crear nuevo dueño</option>
                     </select>
+                    <div id="nuevo-dueno-inline" class="form form-spacing hidden" style="margin-top:12px">
+                        <h3>Nuevo Dueño</h3>
+                        <div class="form-group">
+                            <label for="nuevo-dueno-nombre">Nombre</label>
+                            <input type="text" id="nuevo-dueno-nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevo-dueno-apellido">Apellido</label>
+                            <input type="text" id="nuevo-dueno-apellido" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevo-dueno-telefono">Teléfono</label>
+                            <input type="text" id="nuevo-dueno-telefono" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevo-dueno-direccion">Dirección</label>
+                            <input type="text" id="nuevo-dueno-direccion">
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevo-dueno-email">Email</label>
+                            <input type="email" id="nuevo-dueno-email" required>
+                        </div>
+                    </div>
                     <small id="aviso-duenos" class="aviso-text hidden">
                         No hay dueños registrados. Primero creá un dueño en la pestaña "Dueños".
                     </small>
@@ -158,7 +183,7 @@
             </table>
         </div>
 
-        <!-- SECCION VETERINARIOS -->
+
         <div id="seccion-veterinarios" class="hidden">
             <div class="section-header">
                 <h2>Veterinarios</h2>
@@ -209,7 +234,7 @@
             </table>
         </div>
 
-        <!-- SECCION HISTORIAL CLINICO -->
+
         <div id="seccion-historial" class="hidden">
             <div class="section-header">
                 <h2>Historial Clínico</h2>
