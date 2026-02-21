@@ -1,15 +1,29 @@
 import mongoose from 'mongoose';
 
+let cached = global as typeof global & { mongoosePromise?: Promise<typeof mongoose> };
+
 const connectDB = async (): Promise<void> => {
-    try {
-        const conn = await mongoose.connect(process.env.MONGO_URI as string, {
+    if (mongoose.connection.readyState >= 1) {
+        return;
+    }
+
+    if (!cached.mongoosePromise) {
+        cached.mongoosePromise = mongoose.connect(process.env.MONGO_URI as string, {
             tls: true,
             tlsAllowInvalidCertificates: true,
+            bufferCommands: false,
         });
-        console.log(`MongoDB conectado: ${conn.connection.host}`);
+    }
+
+    try {
+        await cached.mongoosePromise;
+        console.log('MongoDB conectado');
     } catch (error) {
+        cached.mongoosePromise = undefined;
         console.error('Error al conectar con MongoDB:', error);
+        throw error;
     }
 };
 
 export default connectDB;
+

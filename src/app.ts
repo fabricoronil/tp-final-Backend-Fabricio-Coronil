@@ -19,6 +19,16 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// Middleware para asegurar conexión a MongoDB antes de cada request
+app.use(async (_req, _res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/owners', ownerRoutes);
 app.use('/api/pets', petRoutes);
@@ -26,9 +36,6 @@ app.use('/api/vets', vetRoutes);
 app.use('/api/clinical-histories', clinicalHistoryRoutes);
 
 app.use(errorHandler);
-
-// Conectar a la base de datos
-connectDB();
 
 // Solo escuchar en un puerto cuando se ejecuta localmente (no en Vercel)
 if (process.env.VERCEL !== '1') {
@@ -39,3 +46,4 @@ if (process.env.VERCEL !== '1') {
 }
 
 export default app;
+
