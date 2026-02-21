@@ -17,8 +17,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
-
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/api/auth', authRoutes);
@@ -29,10 +27,15 @@ app.use('/api/clinical-histories', clinicalHistoryRoutes);
 
 app.use(errorHandler);
 
-connectDB().then(() => {
+// Conectar a la base de datos
+connectDB();
+
+// Solo escuchar en un puerto cuando se ejecuta localmente (no en Vercel)
+if (process.env.VERCEL !== '1') {
+    const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
         console.log(`Servidor corriendo en puerto ${PORT}`);
     });
-});
+}
 
 export default app;
