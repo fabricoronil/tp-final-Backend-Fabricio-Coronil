@@ -36,7 +36,10 @@ cd tp-final-Fabricio-Coronil
 npm install
 ```
 
-3. Crear archivo `.env` en la raiz del proyecto (ver seccion Variables de Entorno).
+3. Crear archivo `.env` en la raiz del proyecto:
+```bash
+copy .env.example .env
+```
 
 4. Iniciar el servidor en modo desarrollo:
 ```bash
@@ -47,12 +50,12 @@ npm run dev
 
 ## Variables de Entorno
 
-Crear un archivo `.env` en la raiz del proyecto con las siguientes variables:
+El archivo `.env.example` ya contiene los valores necesarios para ejecutar el proyecto. Solo hay que copiarlo como `.env`:
 
 ```
 PORT=3000
-MONGO_URI=mongodb+srv://usuario:password@cluster.mongodb.net/patitas_felices
-JWT_SECRET=tu_clave_secreta_jwt
+MONGO_URI=mongodb+srv://fabriciocoronil_db_user:ivan12345@cluster0.wn2zt3b.mongodb.net/patitas_felices?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=clave_secreta_jwt_patitas_felices
 ```
 
 ## Estructura del Proyecto
