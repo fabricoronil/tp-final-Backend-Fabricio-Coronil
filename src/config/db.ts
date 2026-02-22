@@ -1,25 +1,30 @@
 import mongoose from 'mongoose';
 
-let cached = global as typeof global & { mongoosePromise?: Promise<typeof mongoose> };
+let connectionPromise: Promise<typeof mongoose> | null = null;
 
 const connectDB = async (): Promise<void> => {
-    if (mongoose.connection.readyState >= 1) {
+    // Si ya está conectado, no hacer nada
+    if (mongoose.connection.readyState === 1) {
         return;
     }
 
-    if (!cached.mongoosePromise) {
-        cached.mongoosePromise = mongoose.connect(process.env.MONGO_URI as string, {
-            tls: true,
-            tlsAllowInvalidCertificates: true,
-            bufferCommands: false,
-        });
+    // Si hay una conexión en progreso, esperar a que termine
+    if (connectionPromise) {
+        await connectionPromise;
+        return;
     }
 
+    // Crear nueva conexión
+    connectionPromise = mongoose.connect(process.env.MONGO_URI as string, {
+        tls: true,
+        tlsAllowInvalidCertificates: true,
+    });
+
     try {
-        await cached.mongoosePromise;
+        await connectionPromise;
         console.log('MongoDB conectado');
     } catch (error) {
-        cached.mongoosePromise = undefined;
+        connectionPromise = null;
         console.error('Error al conectar con MongoDB:', error);
         throw error;
     }
