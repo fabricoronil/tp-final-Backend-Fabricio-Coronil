@@ -1,5 +1,13 @@
 const API_URL = '/api';
 
+function mostrarLoading() {
+    document.getElementById('loading-overlay').classList.remove('hidden');
+}
+
+function ocultarLoading() {
+    document.getElementById('loading-overlay').classList.add('hidden');
+}
+
 function togglePassword(inputId, btn) {
     const input = document.getElementById(inputId);
     if (input.type === 'password') {
@@ -49,6 +57,8 @@ async function handleLogin(e) {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
+    mostrarLoading();
+
     try {
         const res = await fetch(API_URL + '/auth/login', {
             method: 'POST',
@@ -59,6 +69,7 @@ async function handleLogin(e) {
         const data = await res.json();
 
         if (!res.ok) {
+            ocultarLoading();
             mostrarMensaje(data.mensaje || 'Error al iniciar sesion', 'error');
             return;
         }
@@ -67,6 +78,7 @@ async function handleLogin(e) {
         localStorage.setItem('username', data.username);
         window.location.href = '/dashboard.html';
     } catch (error) {
+        ocultarLoading();
         mostrarMensaje('Error de conexion con el servidor', 'error');
     }
 }
@@ -84,6 +96,8 @@ async function handleRegister(e) {
         return;
     }
 
+    mostrarLoading();
+
     try {
         const res = await fetch(API_URL + '/auth/register', {
             method: 'POST',
@@ -94,6 +108,7 @@ async function handleRegister(e) {
         const data = await res.json();
 
         if (!res.ok) {
+            ocultarLoading();
             const msg = data.errores
                 ? data.errores.map(e => e.msg).join(', ')
                 : data.mensaje || 'Error al registrarse';
@@ -105,6 +120,7 @@ async function handleRegister(e) {
         localStorage.setItem('username', data.username);
         window.location.href = '/dashboard.html';
     } catch (error) {
+        ocultarLoading();
         mostrarMensaje('Error de conexion con el servidor', 'error');
     }
 }
