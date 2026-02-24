@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Middleware para asegurar conexión a MongoDB antes de cada request
+
 app.use(async (_req, _res, next) => {
     try {
         await connectDB();
@@ -37,7 +37,7 @@ app.use('/api/clinical-histories', clinicalHistoryRoutes);
 
 app.use(errorHandler);
 
-// Solo escuchar en un puerto cuando se ejecuta localmente (no en Vercel)
+
 if (process.env.VERCEL !== '1') {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {

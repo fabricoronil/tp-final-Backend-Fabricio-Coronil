@@ -42,8 +42,6 @@ document.addEventListener('click', function (e) {
     }
 });
 
-
-
 function cambiarSeccion(seccion) {
     const tabs = document.querySelectorAll('.tab');
     tabs.forEach(t => t.classList.remove('active'));
@@ -72,8 +70,6 @@ function cambiarSeccion(seccion) {
     }
 }
 
-
-
 window.onload = function () {
     const token = getToken();
     if (!token) {
@@ -87,8 +83,6 @@ window.onload = function () {
     cargarMascotas();
     cargarDuenosSelect();
 };
-
-
 
 async function cargarDuenosTabla() {
     try {
@@ -110,10 +104,10 @@ async function cargarDuenosTabla() {
         duenos.forEach(d => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${d.nombre}</td>
-                <td>${d.apellido}</td>
-                <td>${d.telefono || '-'}</td>
-                <td>${d.email}</td>
+                <td data-label="Nombre">${d.nombre}</td>
+                <td data-label="Apellido">${d.apellido}</td>
+                <td data-label="Teléfono">${d.telefono || '-'}</td>
+                <td data-label="Email">${d.email}</td>
                 <td class="acciones">
                     <button class="btn btn-small" onclick="editarDueno('${d._id}')">Editar</button>
                     <button class="btn btn-danger btn-small" onclick="eliminarDueno('${d._id}')">Eliminar</button>
@@ -271,8 +265,6 @@ async function eliminarDueno(id) {
     }
 }
 
-
-
 async function cargarMascotas() {
     try {
         const res = await fetch(API_URL + '/pets', {
@@ -294,11 +286,11 @@ async function cargarMascotas() {
             const ownerNombre = m.owner ? m.owner.nombre + ' ' + m.owner.apellido : 'Sin dueño';
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${m.nombre}</td>
-                <td>${m.especie}</td>
-                <td>${m.raza || '-'}</td>
-                <td>${m.edad || '-'}</td>
-                <td>${ownerNombre}</td>
+                <td data-label="Nombre">${m.nombre}</td>
+                <td data-label="Especie">${m.especie}</td>
+                <td data-label="Raza">${m.raza || '-'}</td>
+                <td data-label="Edad">${m.edad || '-'}</td>
+                <td data-label="Dueño">${ownerNombre}</td>
                 <td class="acciones">
                     <button class="btn btn-small" onclick="editarMascota('${m._id}')">Editar</button>
                     <button class="btn btn-danger btn-small" onclick="eliminarMascota('${m._id}')">Eliminar</button>
@@ -452,8 +444,6 @@ async function eliminarMascota(id) {
     }
 }
 
-
-
 async function cargarVeterinarios() {
     try {
         const res = await fetch(API_URL + '/vets', {
@@ -474,10 +464,10 @@ async function cargarVeterinarios() {
         vets.forEach(v => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${v.nombre}</td>
-                <td>${v.apellido}</td>
-                <td>${v.especialidad}</td>
-                <td>${v.email}</td>
+                <td data-label="Nombre">${v.nombre}</td>
+                <td data-label="Apellido">${v.apellido}</td>
+                <td data-label="Especialidad">${v.especialidad}</td>
+                <td data-label="Email">${v.email}</td>
                 <td class="acciones">
                     <button class="btn btn-small" onclick="editarVet('${v._id}')">Editar</button>
                     <button class="btn btn-danger btn-small" onclick="eliminarVet('${v._id}')">Eliminar</button>
@@ -590,8 +580,6 @@ async function eliminarVet(id) {
     }
 }
 
-
-
 async function cargarHistorial() {
     try {
         const res = await fetch(API_URL + '/clinical-histories', {
@@ -615,11 +603,11 @@ async function cargarHistorial() {
             const fecha = h.fecha ? new Date(h.fecha).toLocaleDateString('es-AR') : '-';
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${fecha}</td>
-                <td>${mascotaNombre}</td>
-                <td>${vetNombre}</td>
-                <td>${h.diagnostico}</td>
-                <td>${h.tratamiento}</td>
+                <td data-label="Fecha">${fecha}</td>
+                <td data-label="Mascota">${mascotaNombre}</td>
+                <td data-label="Veterinario">${vetNombre}</td>
+                <td data-label="Diagnóstico">${h.diagnostico}</td>
+                <td data-label="Tratamiento">${h.tratamiento}</td>
                 <td class="acciones">
                     <button class="btn btn-small" onclick="editarHistorial('${h._id}')">Editar</button>
                     <button class="btn btn-danger btn-small" onclick="eliminarHistorial('${h._id}')">Eliminar</button>
