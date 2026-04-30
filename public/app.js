@@ -1,5 +1,33 @@
 const API_URL = '/api';
 
+// ---- Landing Page Navigation ----
+
+function irAAuth(tab) {
+    document.getElementById('landing-section').classList.add('hidden');
+    const authPage = document.getElementById('auth-page');
+    authPage.classList.remove('hidden');
+    // Re-trigger entrance animation
+    authPage.style.animation = 'none';
+    authPage.offsetHeight; // force reflow
+    authPage.style.animation = '';
+    
+    if (tab === 'register') {
+        mostrarTab('register');
+    } else {
+        mostrarTab('login');
+    }
+    window.scrollTo(0, 0);
+}
+
+function volverALanding() {
+    document.getElementById('auth-page').classList.add('hidden');
+    const landing = document.getElementById('landing-section');
+    landing.classList.remove('hidden');
+    window.scrollTo(0, 0);
+    limpiarMensaje();
+}
+
+
 function mostrarLoading() {
     document.getElementById('loading-overlay').classList.remove('hidden');
 }

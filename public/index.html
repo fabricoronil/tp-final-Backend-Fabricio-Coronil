@@ -5,24 +5,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patitas Felices - Veterinaria</title>
+    <meta name="description" content="Patitas Felices - Sistema de gestión veterinaria. Cuidamos a tus mascotas con amor y profesionalismo.">
     <link rel="icon" type="image/png" href="icono.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="container">
+
+    <!-- ======= LANDING PAGE ======= -->
+    <section id="landing-section">
+        <!-- Partículas decorativas de fondo -->
+        <div class="landing-particles">
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+        </div>
+
+        <nav class="landing-nav">
+            <div class="landing-nav-brand">
+                <img src="logo.png" alt="Logo Patitas Felices" class="landing-nav-logo">
+                <span class="landing-nav-name">Patitas Felices</span>
+            </div>
+            <div class="landing-nav-actions">
+                <button class="landing-nav-btn landing-nav-btn--ghost" onclick="irAAuth('login')">Iniciar Sesión</button>
+                <button class="landing-nav-btn landing-nav-btn--solid" onclick="irAAuth('register')">Registrarse</button>
+            </div>
+        </nav>
+
+        <div class="landing-hero">
+            <div class="landing-hero-content">
+                <div class="landing-badge">🐾 Sistema de Gestión Veterinaria</div>
+                <h1 class="landing-title">
+                    Cuidamos a tus mascotas con <span class="landing-title-highlight">amor y profesionalismo</span>
+                </h1>
+                <p class="landing-subtitle">
+                    Gestiona historias clínicas, dueños, mascotas y veterinarios de forma simple, rápida y segura desde cualquier lugar.
+                </p>
+                <div class="landing-cta-group">
+                    <button class="landing-cta landing-cta--primary" onclick="irAAuth('register')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="8.5" cy="7" r="4"/>
+                            <line x1="20" y1="8" x2="20" y2="14"/>
+                            <line x1="23" y1="11" x2="17" y2="11"/>
+                        </svg>
+                        Crear Cuenta Gratis
+                    </button>
+                    <button class="landing-cta landing-cta--secondary" onclick="irAAuth('login')">
+                        Iniciar Sesión
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="landing-hero-visual">
+                <div class="landing-card landing-card--1">
+                    <div class="landing-card-icon">🐕</div>
+                    <div>
+                        <div class="landing-card-title">Mascotas</div>
+                        <div class="landing-card-desc">Registro completo</div>
+                    </div>
+                </div>
+                <div class="landing-card landing-card--2">
+                    <div class="landing-card-icon">📋</div>
+                    <div>
+                        <div class="landing-card-title">Historias Clínicas</div>
+                        <div class="landing-card-desc">Control total</div>
+                    </div>
+                </div>
+                <div class="landing-card landing-card--3">
+                    <div class="landing-card-icon">👩‍⚕️</div>
+                    <div>
+                        <div class="landing-card-title">Veterinarios</div>
+                        <div class="landing-card-desc">Equipo profesional</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="landing-features">
+            <div class="landing-feature">
+                <div class="landing-feature-icon">🔒</div>
+                <h3>Seguro</h3>
+                <p>Tus datos protegidos con autenticación JWT y encriptación.</p>
+            </div>
+            <div class="landing-feature">
+                <div class="landing-feature-icon">⚡</div>
+                <h3>Rápido</h3>
+                <p>Interfaz ágil para gestionar todo en segundos.</p>
+            </div>
+            <div class="landing-feature">
+                <div class="landing-feature-icon">📱</div>
+                <h3>Responsive</h3>
+                <p>Accede desde cualquier dispositivo, en cualquier momento.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= AUTH SECTION ======= -->
+    <div class="container hidden" id="auth-page">
+        <button class="back-to-landing" onclick="volverALanding()" id="btn-volver-landing">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+            </svg>
+            Volver al inicio
+        </button>
         <img src="logo.png" alt="Logo Patitas Felices" class="login-logo">
         <h1>Patitas Felices</h1>
-        <p>Sistema de gestion veterinaria</p>
+        <p>Sistema de gestión veterinaria</p>
 
         <div id="auth-section">
             <div class="tabs">
-                <button class="tab active" onclick="mostrarTab('login')">Iniciar Sesion</button>
+                <button class="tab active" onclick="mostrarTab('login')">Iniciar Sesión</button>
                 <button class="tab" onclick="mostrarTab('register')">Registrarse</button>
             </div>
 
             <form id="login-form" class="form" onsubmit="handleLogin(event)">
-                <h2>Iniciar Sesion</h2>
+                <h2>Iniciar Sesión</h2>
                 <div class="form-group">
                     <label for="login-email">Email</label>
                     <input type="email" id="login-email" required>
@@ -86,7 +193,6 @@
             <div id="mensaje" class="mensaje"></div>
         </div>
     </div>
-
 
     <div id="loading-overlay" class="loading-overlay hidden">
         <div class="loading-content">

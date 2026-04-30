@@ -41,7 +41,7 @@ app.use(errorHandler);
 if (process.env.VERCEL !== '1') {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
-        console.log(`Servidor corriendo en puerto ${PORT}`);
+        console.log(`Servidor corriendo en: http://localhost:${PORT}`);
     });
 }
 
