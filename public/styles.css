@@ -1269,7 +1269,30 @@ body:has(#auth-section) h1 {
         flex: none;
         width: 100%;
         max-width: 360px;
-        height: 350px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        margin: 0 auto;
+    }
+
+    .landing-hero-visual .landing-card {
+        position: static;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        width: 100%;
+        animation: cardFloat 600ms ease-out both;
+    }
+
+    .landing-hero-visual .landing-card--1 { animation-delay: 300ms; }
+    .landing-hero-visual .landing-card--2 { animation-delay: 450ms; }
+    .landing-hero-visual .landing-card--3 { animation-delay: 600ms; }
+
+    .landing-hero-visual .landing-card:hover {
+        transform: translateY(-4px) !important;
     }
 
     .landing-features {
@@ -1323,8 +1346,8 @@ body:has(#auth-section) h1 {
     }
 
     .landing-hero-visual {
-        max-width: 280px;
-        height: 320px;
+        max-width: 320px;
+        gap: 12px;
     }
 
     .landing-card {
